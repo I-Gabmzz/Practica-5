@@ -1,28 +1,39 @@
-import java.util.ArrayList;
+//Se importa la libreria necesaria para HashSet
+import java.util.HashSet;
 
+//Se crea la clase jugador
 public class Jugador {
+
+    //Se declaran los atributos de la clase
     private String nombre;
-    private ArrayList<Letra> letras;
-    private int puntuacionRonda ;
+    private HashSet<String> palabrasUsadas;
     private int puntuacionTotal ;
 
+    //Se declara el constructor de la clase recibiendo como parametro el nombre del jugador
     public Jugador(String nombre) {
         this.nombre = nombre;
-        this.letras = new ArrayList<>();
-        this.puntuacionRonda = 0;
+        this.palabrasUsadas = new HashSet<>();
         this.puntuacionTotal = 0;
     }
-
-    public int getPuntuacionRonda() {
-        return puntuacionRonda;
+    //Metodo para agregar palabras al HashSet, recibe como parametro la palabra a agregar y la puntuacion que se le acumulara
+    public void agregarPalabra(String palabra, int puntuacion) {
+        palabrasUsadas.add(palabra.toUpperCase());
+        this.puntuacionTotal += puntuacion;
     }
-    public void setPuntuacionRonda(int puntuacionRonda) {
-        this.puntuacionRonda = puntuacionRonda;
-    }
+    //Metodo getter para obtener la puntuacion total del jugador
     public int getPuntuacionTotal() {
         return puntuacionTotal;
     }
-    public void setPuntuacionTotal(int puntuacionTotal) {
-        this.puntuacionTotal = puntuacionTotal;
+    //Metodo para verificar si el jugador ya uso una palabra, recibiendo como parametro la palabra que desea verificar
+    public boolean yaUsoEstaPalabra(String palabra) {
+        return palabrasUsadas.contains(palabra.toUpperCase());
+    }
+    //Metodo para reiniciar el HashSet de las palabras usadas
+    public void reiniciarPalabrasUsadas() {
+        palabrasUsadas.clear();
+    }
+    //Metodo para obtener el HashSet de las palabras usadas del jugador
+    public HashSet<String> getPalabrasUsadas() {
+        return palabrasUsadas;
     }
 }
