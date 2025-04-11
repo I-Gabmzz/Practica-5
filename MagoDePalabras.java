@@ -284,7 +284,7 @@ public class MagoDePalabras {
         if (scanner.hasNextLine()) {
             scanner.nextLine();
         }
-
+        interfaz.mostrarInformacionDelModo(modoDeJuego);
         if (modoDeJuego == 1) {
             int pasesConsecutivos = 0;
             while (rondaActiva) {

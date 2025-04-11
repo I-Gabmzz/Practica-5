@@ -109,7 +109,7 @@ public class Interfaz {
         final String reset = "\u001B[0m";
         System.out.println(negrita + "\n                       |=====| RONDA  " + ronda + " |=====|" + reset);
         System.out.println("\n               Forma palabras con las siguientes letras: \n\n                    " + letras);
-        System.out.print(negrita + "\n * Escribe una palabra usando solo estas letras o presiona Enter para pasar tu turno.\n" + reset);
+        System.out.print(negrita + "\n * Escribe una palabra usando solo estas letras o presiona enter para pasar tu turno.\n" + reset);
     }
 
     // Metodo para determinar el ganador y a la vez imprimir los resultados mediante una tabla ordenada de forma descendente.
@@ -145,6 +145,24 @@ public class Interfaz {
         final String negritaRojo = "\u001B[1;31m";
         final String reset = "\u001B[0m";
         System.out.println(negritaRojo + "\n Error --> " + aviso + reset);
+    }
+
+    // Metodo para mostrar informacion acerca del modo de juego seleccionado.
+    public void mostrarInformacionDelModo(int opcModoDeJuego) {
+        final String reset = "\u001B[0m";
+        final String negritaAmarillo = "\u001B[1;33m";
+
+
+        if (opcModoDeJuego == 1) {
+            System.out.println(negritaAmarillo + "\n       El modo normal consiste en que unicamente aparecen vocales \n     sin " +
+                    "acentos y cada una de las 10 letras que aparecen disponibles\n                se" +
+                    " pueden repetir para formar una palabra. " + reset);
+        } else {
+            System.out.println(negritaAmarillo + "\n       El modo experto consiste en que aparecen vocales con " +
+                    "acentos \n           y cada una de las 10 letras que aparecen disponibles\n                 no" +
+                    " pueden repetir para formar una palabra. " + reset);
+
+        }
     }
 
 }
