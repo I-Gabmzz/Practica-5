@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.Set;
 
 public class Interfaz {
 
@@ -19,7 +20,7 @@ public class Interfaz {
         int numeroDeJugadores;
         scanner = new Scanner(System.in);
         while (true) {
-            System.out.println("\nIngrese el numero de jugadores (2 - 4): ");
+            System.out.println("\n * Ingrese el numero de jugadores (2 - 4): ");
             numeroDeJugadores = scanner.nextInt();
             if (numeroDeJugadores >= 2 && numeroDeJugadores <= 4) {
                 return numeroDeJugadores;
@@ -30,12 +31,29 @@ public class Interfaz {
     }
 
     public String solicitarNombreDeJugador(Scanner scanner, int numeroDeJugadores) {
-        System.out.println("\nIngrese el nombre del jugador " + numeroDeJugadores + ": ");
+        System.out.println("\n * Ingrese el nombre del jugador " + numeroDeJugadores + ": ");
         String nombre = scanner.next();
         return nombre;
     }
 
+    public boolean solicitarModoDeJuego(Scanner scanner) {
+        int opcModoDeJuego;
 
+        while (true) {
+            System.out.println("\n * Ingrese el modo de juego: ");
+            opcModoDeJuego = scanner.nextInt();
+            if (opcModoDeJuego == 1 || opcModoDeJuego == 2) {
+                break;
+            } else {
+                System.out.println("Modo fuera del rango, unicamente ingresa 1 o 2.");
+            }
+        }
+        return false;
+    }
+
+    public void IndicarTurnoDeJugador(Jugador player, Set<Character> letras) {
+        System.out.print("\n" + player.getNombre() + " (" + player.getPuntuacionTotal() + " puntos) > ");
+    }
 
 
 }
