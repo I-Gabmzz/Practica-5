@@ -17,7 +17,7 @@ public class Jugador {
     }
     // Metodo para agregar palabras al HashSet, recibe como parametro la palabra a agregar y la puntuacion que se le acumulara
     public void agregarPalabra(String palabra, int puntuacion) {
-        palabrasUsadas.add(palabra.toUpperCase());
+        palabrasUsadas.add(palabra.toLowerCase());
         this.puntuacionTotal += puntuacion;
     }
     // Metodo getter para obtener la puntuacion total del jugador
@@ -27,7 +27,7 @@ public class Jugador {
 
     // Metodo para verificar si el jugador ya uso una palabra, recibiendo como parametro la palabra que desea verificar
     public boolean yaUsoEstaPalabra(String palabra) {
-        return palabrasUsadas.contains(palabra.toUpperCase());
+        return palabrasUsadas.contains(palabra.toLowerCase());
     }
 
     // Metodo para reiniciar el HashSet de las palabras usadas

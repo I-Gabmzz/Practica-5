@@ -5,18 +5,6 @@ import java.util.Scanner;
 public class Interfaz {
     final String negrita = "\u001B[1m";
 
-    public Interfaz() {
-        Scanner scanner = new Scanner(System.in);
-        imprimirTituloDelJuego();
-        solicitarJugadores(scanner);
-        solicitarNombreDeJugador(scanner, 1);
-        solicitarModoDeJuego(scanner);
-    }
-
-    public static void main(String[] args) {
-        Interfaz interfaz = new Interfaz();
-    }
-
     public void imprimirTituloDelJuego() {
         final String reset = "\u001B[0m";
         final String MORADO = "\u001B[35m";
@@ -65,15 +53,15 @@ public class Interfaz {
         }
     }
 
-    public String solicitarNombreDeJugador(Scanner scanner, int numeroDeJugadores) {
+    public String solicitarNombreDeJugador(Scanner scanner, int numDeJugador) {
         final String reset = "\u001B[0m";
 
-        System.out.print(negrita + "\n * Ingrese el nombre del jugador " + numeroDeJugadores + ": " + reset);
+        System.out.print(negrita + "\n * Ingrese el nombre del jugador " + numDeJugador + ": " + reset);
         String nombre = scanner.next();
         return nombre;
     }
 
-    public boolean solicitarModoDeJuego(Scanner scanner) {
+    public int solicitarModoDeJuego(Scanner scanner) {
         int opcModoDeJuego;
         final String verde = "\u001B[32m";
         final String rojo = "\u001B[31m";
@@ -85,18 +73,18 @@ public class Interfaz {
             System.out.println("  2 -> " + rojo + "Experto" + reset + "\n");
             System.out.print(" * Ingrese el numero del modo de juego deseado: ");
             opcModoDeJuego = scanner.nextInt();
-            if (opcModoDeJuego == 1 || opcModoDeJuego == 2) {
-                break;
+            if (opcModoDeJuego == 1) {
+                return opcModoDeJuego = 1;
+            } else if (opcModoDeJuego == 2) {
+                return opcModoDeJuego = 2;
             } else {
                 System.out.println("La entrada esta fuera del rango, unicamente ingresa 1 o 2.");
             }
         }
-        return false;
     }
 
     public void indicarTurnoDeJugador(Jugador jugador) {
         final String reset = "\u001B[0m";
-
         System.out.print(negrita + "\n" + jugador.getNombre() + " (" + jugador.getPuntuacionTotal() + " puntos) > " + reset);
     }
 
