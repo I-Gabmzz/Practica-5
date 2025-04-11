@@ -253,15 +253,26 @@ public class MagoDePalabras {
     public void mostrarPalabrasUsadas() {
         final String negritaMorado = "\u001B[1;35m";
         final String reset = "\u001B[0m";
+
         if (palabrasUsadas.isEmpty()) {
             System.out.println(negritaMorado + "\n\nNo hay palabras usadas" + reset);
             return;
         }
-        System.out.println(negritaMorado + "\n\nPalabras Usadas: " + reset);
+
+        System.out.println(negritaMorado + "\n\nPalabras usadas y sus puntuaciones:" + reset);
+
         palabrasUsadas.stream()
                 .sorted()
-                .forEach(System.out::println);
+                .forEach(palabra -> {
+                    Integer puntuacion = diccionario.getOrDefault(palabra, null);
+                    if (puntuacion != null) {
+                        System.out.println(palabra + " ---> " + puntuacion);
+                    } else {
+                        System.out.println(palabra + " -> Sin puntuación");
+                    }
+                });
     }
+
 
     // Metodo para jugar una ronda del juego del Mago De Las Palabras.
     public void jugarRondaDePalabras(Scanner scanner, List <Jugador> jugadores, int modoDeJuego,int NumeroDeRonda) {
@@ -271,7 +282,7 @@ public class MagoDePalabras {
         palabrasUsadas.clear();
         jugadores.forEach(jugador -> jugador.reiniciarPalabrasUsadas());
 
-        HashSet<Character> letras = new HashSet<>();
+        HashSet<Character> letras;
 
         if (modoDeJuego == 1) {
              letras = generarLetrasAleatoriasNormal();
@@ -284,7 +295,9 @@ public class MagoDePalabras {
         if (scanner.hasNextLine()) {
             scanner.nextLine();
         }
+
         interfaz.mostrarInformacionDelModo(modoDeJuego);
+
         if (modoDeJuego == 1) {
             int pasesConsecutivos = 0;
             while (rondaActiva) {
@@ -316,7 +329,6 @@ public class MagoDePalabras {
                             }
                         }
                     }
-
                     if (!rondaActiva) {
                         break;
                     }
@@ -349,8 +361,6 @@ public class MagoDePalabras {
                             noContesto = false;
                             pasesConsecutivos++;
                             if (pasesConsecutivos >= jugadores.size()) {
-                                rondaActiva = false;
-                                NumeroDeRonda++;
                                 return;
                             }
                         }
@@ -385,7 +395,6 @@ public class MagoDePalabras {
         interfaz.limpiarPantalla();
 
         for (int NumeroDeRonda = 1; NumeroDeRonda <= 3; NumeroDeRonda++) {
-            interfaz.limpiarPantalla();
             jugarRondaDePalabras(scanner, jugadores, modoDeJuego, NumeroDeRonda);
         }
 

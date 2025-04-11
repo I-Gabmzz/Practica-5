@@ -109,7 +109,7 @@ public class Interfaz {
         final String reset = "\u001B[0m";
         System.out.println(negrita + "\n                       |=====| RONDA  " + ronda + " |=====|" + reset);
         System.out.println("\n               Forma palabras con las siguientes letras: \n\n                    " + letras);
-        System.out.print(negrita + "\n * Escribe una palabra usando solo estas letras o presiona enter para pasar tu turno.\n" + reset);
+        System.out.print(negrita + "\n * Escribe una palabra usando solo estas letras o presiona Enter para pasar tu turno.\n" + reset);
     }
 
     // Metodo para determinar el ganador y a la vez imprimir los resultados mediante una tabla ordenada de forma descendente.
