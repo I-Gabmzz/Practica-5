@@ -24,14 +24,17 @@ public class Jugador {
     public int getPuntuacionTotal() {
         return puntuacionTotal;
     }
+
     //Metodo para verificar si el jugador ya uso una palabra, recibiendo como parametro la palabra que desea verificar
     public boolean yaUsoEstaPalabra(String palabra) {
         return palabrasUsadas.contains(palabra.toUpperCase());
     }
+
     //Metodo para reiniciar el HashSet de las palabras usadas
     public void reiniciarPalabrasUsadas() {
         palabrasUsadas.clear();
     }
+
     //Metodo para obtener el HashSet de las palabras usadas del jugador
     public HashSet<String> getPalabrasUsadas() {
         return palabrasUsadas;
