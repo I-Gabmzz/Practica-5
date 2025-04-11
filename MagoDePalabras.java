@@ -1,18 +1,17 @@
-//Se importan las librerias necesarias para la clase
+// Se importan las librerias necesarias para la clase.
 import java.io.*;
 import java.util.*;
-import java.util.concurrent.*;
 
-//Se crea la clase MagoDePalabras
+// Se crea la clase MagoDePalabras.
 public class MagoDePalabras {
-    //Se declaran los atributos de la clase
+    // Se declaran los atributos de la clase.
     private Random random;
     private HashMap<String, Integer> diccionario;
     private HashMap<String, Integer> puntuaciones;
     private HashSet<String> palabrasUsadas;
     private HashSet<Character> letrasEnJuego;
 
-    //Se declara el constructor de la clase
+    // Se declara el constructor de la clase.
     public MagoDePalabras() {
         random = new Random();
         diccionario = new HashMap<>();
@@ -23,7 +22,7 @@ public class MagoDePalabras {
        // cargarArchivo("C:\\Users\\14321\\IdeaProjects\\Practica-5\\palabras.txt");
     }
 
-    //Metodo para cargar el archivo de las palabras
+    // Metodo para cargar el archivo de las palabras.
     public void cargarArchivo(String archivo) {
         try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
             String linea;
@@ -36,7 +35,7 @@ public class MagoDePalabras {
         }
     }
 
-    //Metodo para calcular los puntos de la palabra
+    // Metodo para calcular los puntos de la palabra.
     public int calcularPuntos(String palabra) {
         int puntos = 0;
         String vocales = "aeiouáéíóú";
@@ -51,7 +50,7 @@ public class MagoDePalabras {
         return puntos;
     }
 
-    //Metodo para generar letras aleatorias
+    // Metodo para generar letras aleatorias segun el modo normal.
     public HashSet<Character> generarLetrasAleatoriasNormal() {
         HashSet<Character> letras = new HashSet<>();
         String vocales = "aeiou";
@@ -69,7 +68,7 @@ public class MagoDePalabras {
         return letras;
     }
 
-    //Metodo para generar letras aleatorias
+    //Metodo para generar letras aleatorias segun el modo experto.
     public HashSet<Character> generarLetrasAleatoriasExperto() {
         HashSet<Character> letras = new HashSet<>();
         String vocales = "aeiouáéíóú";
@@ -87,13 +86,13 @@ public class MagoDePalabras {
         return letras;
     }
 
-    //Metodo para agregar letras en el juego
+    // Metodo para agregar letras en el juego.
     public void agregarLetrasEnJuego(HashSet<Character> letrasRonda) {
         letrasEnJuego.clear();
         letrasEnJuego.addAll(letrasRonda);
     }
 
-    //Metodo para saber si ya se uso una palabra
+    // Metodo para saber si ya se uso una palabra.
     public boolean yaSeUsoEsaPalabra(String palabra) {
         return palabrasUsadas.contains(palabra.toUpperCase());
     }
@@ -131,11 +130,12 @@ public class MagoDePalabras {
         return true;
     }
 
-    //Metodo para agregar la palabra a las palabras usadas
+    // Metodo para agregar la palabra a las palabras usadas
     public void agregarPalabrasUsadas(String palabra) {
         palabrasUsadas.add(palabra.toLowerCase());
     }
 
+    // Metodo para validar la entrada segun el modo normal.
     public boolean validarEntrada(Jugador jugador, String respuesta) {
         if (jugador.yaUsoEstaPalabra(respuesta)) {
             return false;
@@ -152,6 +152,7 @@ public class MagoDePalabras {
         return true;
     }
 
+    // Metodo para validar la entrada segun el modo experto.
     public boolean validarEntradaExperto(Jugador jugador, String respuesta) {
         if (jugador.yaUsoEstaPalabra(respuesta)) {
             return false;
@@ -168,28 +169,29 @@ public class MagoDePalabras {
         return true;
     }
 
+    // Metodo para analizar la respuesta de acuerdo a las reglas del juego y segun el modo normal.
     public void analisisDeRespuestaNormal(Jugador jugador, String respuesta) {
         Interfaz interfaz = new Interfaz();
 
         if (jugador.yaUsoEstaPalabra(respuesta)) {
-            interfaz.mostrarPalabraIncorrecta("¡Ya usaste esa palabra en esta ronda!");
+            interfaz.mostrarPalabraIncorrecta("Ya usaste esa palabra en esta ronda");
             jugador.agregarPalabra(respuesta, -5);
             puntuaciones.put(jugador.getNombre(), jugador.getPuntuacionTotal());
-            interfaz.mostrarPalabraIncorrecta("Palabra no válida. -5 puntos.");
+            interfaz.mostrarPalabraIncorrecta("La palabra no es válida, tienes -5 puntos.");
             return;
         }
         if (yaSeUsoEsaPalabra(respuesta)) {
-            interfaz.mostrarPalabraIncorrecta("¡Esa palabra ya fue usada por otro jugador!");
+            interfaz.mostrarPalabraIncorrecta("Esa palabra no esta disponible porque ya fue usada por otro jugador!");
             jugador.agregarPalabra(respuesta, -5);
             puntuaciones.put(jugador.getNombre(), jugador.getPuntuacionTotal());
-            interfaz.mostrarPalabraIncorrecta("Palabra no válida. -5 puntos.");
+            interfaz.mostrarPalabraIncorrecta("La palabra no es válida, tienes -5 puntos.");
             return;
         }
         if (!tieneLetrasValidasNormal(respuesta)) {
             interfaz.mostrarPalabraIncorrecta("Solo puedes usar las letras disponibles");
             jugador.agregarPalabra(respuesta, -5);
             puntuaciones.put(jugador.getNombre(), jugador.getPuntuacionTotal());
-            interfaz.mostrarPalabraIncorrecta("Palabra no válida. -5 puntos.");
+            interfaz.mostrarPalabraIncorrecta("La palabra no es válida, tienes -5 puntos.");
             return;
         }
 
@@ -203,32 +205,33 @@ public class MagoDePalabras {
         } else {
             jugador.agregarPalabra(respuesta, -5);
             puntuaciones.put(jugador.getNombre(), jugador.getPuntuacionTotal());
-            interfaz.mostrarPalabraIncorrecta("Palabra no válida. -5 puntos.");
+            interfaz.mostrarPalabraIncorrecta("La palabra no es válida, tienes -5 puntos.");
         }
     }
 
+    // Metodo para analizar la respuesta de acuerdo a las reglas del juego y segun el modo experto.
     public void analisisDeRespuestaExperto(Jugador jugador, String respuesta) {
         Interfaz interfaz = new Interfaz();
 
         if (jugador.yaUsoEstaPalabra(respuesta)) {
-            interfaz.mostrarPalabraIncorrecta("¡Ya usaste esa palabra en esta ronda!");
+            interfaz.mostrarPalabraIncorrecta("Ya usaste esa palabra en esta ronda");
             jugador.agregarPalabra(respuesta, -5);
             puntuaciones.put(jugador.getNombre(), jugador.getPuntuacionTotal());
-            interfaz.mostrarPalabraIncorrecta("Palabra no válida. -5 puntos.");
+            interfaz.mostrarPalabraIncorrecta("La palabra no es válida, tienes -5 puntos.");
             return;
         }
         if (yaSeUsoEsaPalabra(respuesta)) {
-            interfaz.mostrarPalabraIncorrecta("¡Esa palabra ya fue usada por otro jugador!");
+            interfaz.mostrarPalabraIncorrecta("Esa palabra no esta disponible porque fue usada por otro jugador.");
             jugador.agregarPalabra(respuesta, -5);
             puntuaciones.put(jugador.getNombre(), jugador.getPuntuacionTotal());
-            interfaz.mostrarPalabraIncorrecta("Palabra no válida. -5 puntos.");
+            interfaz.mostrarPalabraIncorrecta("La palabra no es válida, tienes -5 puntos.");
             return;
         }
         if (!tieneLetrasValidasExperto(respuesta)) {
-            interfaz.mostrarPalabraIncorrecta("Solo puedes usar las letras disponibles");
+            interfaz.mostrarPalabraIncorrecta("Solo puedes usar las letras disponibles.");
             jugador.agregarPalabra(respuesta, -5);
             puntuaciones.put(jugador.getNombre(), jugador.getPuntuacionTotal());
-            interfaz.mostrarPalabraIncorrecta("Palabra no válida. -5 puntos.");
+            interfaz.mostrarPalabraIncorrecta("La palabra no es válida, tienes -5 puntos.");
             return;
         }
 
@@ -242,8 +245,22 @@ public class MagoDePalabras {
         } else {
             jugador.agregarPalabra(respuesta, -5);
             puntuaciones.put(jugador.getNombre(), jugador.getPuntuacionTotal());
-            interfaz.mostrarPalabraIncorrecta("Palabra no válida. -5 puntos.");
+            interfaz.mostrarPalabraIncorrecta("La palabra no es válida, tienes -5 puntos.");
         }
+    }
+
+    // Metodo para formar las palabras ya formadas por los jugadores.
+    public void mostrarPalabrasUsadas() {
+        final String negritaMorado = "\u001B[1;35m";
+        final String reset = "\u001B[0m";
+        if (palabrasUsadas.isEmpty()) {
+            System.out.println(negritaMorado + "\n\nNo hay palabras usadas" + reset);
+            return;
+        }
+        System.out.println(negritaMorado + "\n\nPalabras Usadas: " + reset);
+        palabrasUsadas.stream()
+                .sorted()
+                .forEach(System.out::println);
     }
 
     // Metodo para jugar una ronda del juego del Mago De Las Palabras.
@@ -269,74 +286,85 @@ public class MagoDePalabras {
         }
 
         if (modoDeJuego == 1) {
+            int pasesConsecutivos = 0;
             while (rondaActiva) {
                 rondaActiva = false;
 
-                int pasesConsecutivos = 0;
                 Iterator<Jugador> iterator = jugadores.iterator();
                 while (iterator.hasNext()) {
                     Jugador jugador = iterator.next();
                     interfaz.imprimirRonda(NumeroDeRonda, letras);
+                    mostrarPalabrasUsadas();
                     boolean noContesto = true;
 
                     while (noContesto) {
                         interfaz.indicarTurnoDeJugador(jugador);
-
                         String respuesta = scanner.nextLine().trim().toLowerCase();
 
                         if (!respuesta.isEmpty()) {
                             if (validarEntrada(jugador, respuesta)) {
                                 noContesto = false;
                                 pasesConsecutivos = 0;
+                                rondaActiva = true;
                             }
                             analisisDeRespuestaNormal(jugador, respuesta);
-                            rondaActiva = true;
                         } else {
                             noContesto = false;
                             pasesConsecutivos++;
-                        }
-
-                        if (pasesConsecutivos == jugadores.size()) {
-                            rondaActiva = false;
-                            break;
+                            if (pasesConsecutivos >= jugadores.size()) {
+                                return;
+                            }
                         }
                     }
-                }
 
-                if (!rondaActiva) {
-                    NumeroDeRonda++;
+                    if (!rondaActiva) {
+                        break;
+                    }
                 }
             }
         } else {
             while (rondaActiva) {
+                int pasesConsecutivos = 0;
                 rondaActiva = false;
 
                 Iterator<Jugador> iterator = jugadores.iterator();
                 while (iterator.hasNext()) {
                     Jugador jugador = iterator.next();
                     interfaz.imprimirRonda(NumeroDeRonda, letras);
+                    mostrarPalabrasUsadas();
                     boolean noContesto = true;
 
                     while (noContesto) {
                         interfaz.indicarTurnoDeJugador(jugador);
-
                         String respuesta = scanner.nextLine().trim().toLowerCase();
 
                         if (!respuesta.isEmpty()) {
                             if (validarEntradaExperto(jugador, respuesta)) {
                                 noContesto = false;
+                                pasesConsecutivos = 0;
+                                rondaActiva = true;
                             }
                             analisisDeRespuestaExperto(jugador, respuesta);
-                            rondaActiva = true;
                         } else {
                             noContesto = false;
+                            pasesConsecutivos++;
+                            if (pasesConsecutivos >= jugadores.size()) {
+                                rondaActiva = false;
+                                NumeroDeRonda++;
+                                return;
+                            }
                         }
+                    }
+
+                    if (!rondaActiva) {
+                        break;
                     }
                 }
             }
         }
     }
 
+    // Metodo para jugar al Mago de Las palabras.
     public void iniciarMagoDePalabras() {
         Scanner scanner = new Scanner(System.in);
         Interfaz interfaz = new Interfaz();
@@ -354,11 +382,14 @@ public class MagoDePalabras {
         }
 
         int modoDeJuego = interfaz.solicitarModoDeJuego(scanner);
+        interfaz.limpiarPantalla();
 
         for (int NumeroDeRonda = 1; NumeroDeRonda <= 3; NumeroDeRonda++) {
+            interfaz.limpiarPantalla();
             jugarRondaDePalabras(scanner, jugadores, modoDeJuego, NumeroDeRonda);
         }
 
+        interfaz.limpiarPantalla();
         interfaz.imprimirResultados(jugadores);
     }
 
