@@ -7,12 +7,13 @@ public class Interfaz {
         Scanner scanner = new Scanner(System.in);
         solicitarJugadores(scanner);
         solicitarNombreDeJugador(scanner, 1);
+        solicitarModoDeJuego(scanner);
     }
 
     public static void main(String[] args) {
-        System.out.println("\n========================");
-        System.out.println("\n| MAGO DE LAS PALABRAS |\n");
-        System.out.println("========================\n");
+        System.out.println("\n        ========================");
+        System.out.println("\n        | MAGO DE LAS PALABRAS |\n");
+        System.out.println("        ========================\n");
         Interfaz interfaz = new Interfaz();
     }
 
@@ -20,7 +21,7 @@ public class Interfaz {
         int numeroDeJugadores;
         scanner = new Scanner(System.in);
         while (true) {
-            System.out.println("\n * Ingrese el numero de jugadores (2 - 4): ");
+            System.out.print("\n * Ingrese el numero de jugadores (2 - 4): ");
             numeroDeJugadores = scanner.nextInt();
             if (numeroDeJugadores >= 2 && numeroDeJugadores <= 4) {
                 return numeroDeJugadores;
@@ -31,7 +32,7 @@ public class Interfaz {
     }
 
     public String solicitarNombreDeJugador(Scanner scanner, int numeroDeJugadores) {
-        System.out.println("\n * Ingrese el nombre del jugador " + numeroDeJugadores + ": ");
+        System.out.print("\n * Ingrese el nombre del jugador " + numeroDeJugadores + ": ");
         String nombre = scanner.next();
         return nombre;
     }
@@ -40,7 +41,9 @@ public class Interfaz {
         int opcModoDeJuego;
 
         while (true) {
-            System.out.println("\n * Ingrese el modo de juego: ");
+            System.out.println("\n * Ingrese el numero del modo de juego: ");
+            System.out.println("\n  1 -> Normal");
+            System.out.println("  2 -> Experto\n");
             opcModoDeJuego = scanner.nextInt();
             if (opcModoDeJuego == 1 || opcModoDeJuego == 2) {
                 break;
@@ -51,7 +54,7 @@ public class Interfaz {
         return false;
     }
 
-    public void IndicarTurnoDeJugador(Jugador player, Set<Character> letras) {
+    public void indicarTurnoDeJugador(Jugador player, Set<Character> letras) {
         System.out.print("\n" + player.getNombre() + " (" + player.getPuntuacionTotal() + " puntos) > ");
     }
 
