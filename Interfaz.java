@@ -117,15 +117,21 @@ public class Interfaz {
         jugadores.forEach(jugador -> System.out.println(" - " + jugador.getNombre() + ": " + jugador.getPuntuacionTotal() + " puntos"));
 
         if (!jugadores.isEmpty()) {
-            System.out.println(negrita_Verde + "\n¡El ganador es " + jugadores.get(0).getNombre() + "!" + reset);
+            System.out.println(negrita_Verde + "\nEl ganador es " + jugadores.get(0).getNombre() + "!" + reset);
         } else {
             System.out.println("No se puede determinar el ganador.");
         }
 
         System.out.println(negrita + "\nPalabras usadas por el ganador:" + reset);
         jugadores.get(0).getPalabrasUsadas().forEach(palabras -> System.out.println(" - " + palabras));
+    }
 
+    public void mostrarPalabraCorrecta(String aviso, int puntuacion, int puntosTotales) {
+        System.out.println("\nLa palabra es Correcta '" + aviso + "' -> +" + puntuacion + " puntos (Total: " + puntosTotales + ")");
+    }
 
+    public void mostrarPalabraIncorrecta(String aviso) {
+        System.out.println("\n Error: " + aviso);
     }
 
 }
